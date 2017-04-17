@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 
+ * 
+ * 
+ * @author JaredHansen
+ * @version April 16, 2017
+ */
 public class GameState {
 
 	// Current mode (game over, playing, etc.)
@@ -87,7 +94,7 @@ public class GameState {
 	{
         // Draw the background.
         g.setColor(Color.WHITE);
-        g.fillRect(600, 0, 800, 600);
+        g.fillRect(600, 0, 200, 600);
         g.drawImage(ResourceLoader.getLoader().getImage("path_2.jpg"),  0, 0, null); 
         
         g.setColor(Color.BLACK);

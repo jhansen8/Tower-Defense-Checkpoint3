@@ -1,6 +1,12 @@
 package game;
 
-
+/**
+ * 
+ * 
+ * 
+ * @author JaredHansen
+ * @version April 16, 2017
+ */
 public class EnemySnail extends Enemy 
 {
 
@@ -23,7 +29,6 @@ public class EnemySnail extends Enemy
     	{
     		game.removeAnimatable(this);
     		game.adjustLives(-1);
-    		game.adjustCredits(-5);
     	}
 
 	}

@@ -4,6 +4,13 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+/**
+ * 
+ * 
+ * 
+ * @author JaredHansen
+ * @version April 16, 2017
+ */
 public abstract class Enemy implements Animatable
 {
 	//Fields

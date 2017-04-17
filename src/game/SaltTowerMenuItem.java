@@ -2,6 +2,13 @@ package game;
 
 import java.awt.Point;
 
+/**
+ * 
+ * 
+ * 
+ * @author JaredHansen
+ * @version April 16, 2017
+ */
 public class SaltTowerMenuItem extends Effect {
 
 	public SaltTowerMenuItem(GameState game, Point position) {

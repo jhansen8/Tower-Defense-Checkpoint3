@@ -1,6 +1,12 @@
 package game;
 
-
+/**
+ * 
+ * 
+ * 
+ * @author JaredHansen
+ * @version April 16, 2017
+ */
 public class EnemySCargo extends Enemy 
 {
 
@@ -23,7 +29,6 @@ public class EnemySCargo extends Enemy
     	{
     		game.removeAnimatable(this);
     		game.adjustLives(-2);
-    		game.adjustCredits(-10);
     	}
 
 	}

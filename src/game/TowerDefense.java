@@ -21,7 +21,7 @@ import javax.swing.Timer;
  * using it for testing.
  * 
  * @author Peter Jensen and Jared Hansen
- * @version March 29, 2017
+ * @version April 16, 2017
  */
 public class TowerDefense extends JPanel implements Runnable, ActionListener, MouseListener, MouseMotionListener
 {
