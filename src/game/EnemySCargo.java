@@ -17,11 +17,13 @@ public class EnemySCargo extends Enemy
         // Advance the circle 0.1% (one thousandth the distance)
         //   along the path, and redraw the screen.
         
-    	percentageTraveled += 0.003; //advance each time event is called
+    	percentageTraveled += 0.002; //advance each time event is called
     	
     	if (percentageTraveled > 1.0) //reset when 100% is reached
     	{
-    		percentageTraveled = 0;
+    		game.removeAnimatable(this);
+    		game.adjustLives(-2);
+    		game.adjustCredits(-10);
     	}
 
 	}

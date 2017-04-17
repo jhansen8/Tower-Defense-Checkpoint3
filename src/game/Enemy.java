@@ -32,6 +32,7 @@ public abstract class Enemy implements Animatable
 
 	}
 	
+	@Override
 	public Point getLocation()
 	{
 	       Point imagePos = new Point(); //create new point object for circle

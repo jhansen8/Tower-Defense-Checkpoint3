@@ -21,7 +21,9 @@ public class EnemySnail extends Enemy
     	
     	if (percentageTraveled > 1.0) //reset when 100% is reached
     	{
-    		percentageTraveled = 0;
+    		game.removeAnimatable(this);
+    		game.adjustLives(-1);
+    		game.adjustCredits(-5);
     	}
 
 	}
