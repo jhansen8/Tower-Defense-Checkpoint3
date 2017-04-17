@@ -31,4 +31,12 @@ public abstract class Enemy implements Animatable
 	    		   		imagePos.y-(image.getHeight()/2), null); //circle positioned at center
 
 	}
+	
+	public Point getLocation()
+	{
+	       Point imagePos = new Point(); //create new point object for circle
+	       imagePos = path.getPathPosition(percentageTraveled); //set position based off percentage
+	       
+	       return imagePos;
+	}
 }

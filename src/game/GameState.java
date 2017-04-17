@@ -2,21 +2,29 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 //import java.awt.Point;
 //import java.awt.image.BufferedImage;
 
 public class GameState {
 
 	// Current mode (game over, playing, etc.)
+	boolean isOver, isPlaying;
 	
     // Score, money, etc.
-
-	// List of enemies, towers, etc.
+	int credit, lives;
 	
-	    //private double percentTraveled; //to track the percentage across path
-	    private Animatable enemy;
+	// List of enemies, towers, etc.
+	List<Animatable> active;
+	List<Animatable> expired;
+	Tower currentTower;
+	
 	// Mouse location / status
-        
+	Point mouseLoc;
+	int mouseX, mouseY;
+	boolean buttonPressed;
     
     /**
      * Constructor for GameState object
@@ -26,10 +34,17 @@ public class GameState {
      */
 	public GameState()
 	{       
-        // Assume the circle has traveled 0% along the path.
-        
-        //percentTraveled = 0.0;
-        enemy = new EnemySnail("path_2.txt", this);
+		credit = 100;
+		lives = 10;
+		isOver = false;
+		isPlaying = true;
+		active = new ArrayList<Animatable>();
+		expired = new ArrayList<Animatable>();
+		mouseX = 0;
+		mouseY = 0;
+		buttonPressed = false;
+		currentTower = null;
+		active.add(new EnemySnail("path_2.txt", this));
 	}
 	
 	/**
@@ -38,15 +53,9 @@ public class GameState {
 	 */
 	public void update ()
 	{
-        // Advance the circle 0.1% (one thousandth the distance)
-        //   along the path, and redraw the screen.
-        enemy.update();
-//    	percentTraveled += 0.001; //advance each time event is called
-//    	
-//    	if (percentTraveled > 1.0) //reset when 100% is reached
-//    	{
-//    		percentTraveled = 0;
-//    	}
+		for(Animatable enemy : active) {
+			enemy.update();
+		}
 	}
 	
 	/**
@@ -63,22 +72,11 @@ public class GameState {
         g.setColor(Color.WHITE);
         //g.fillRect(600, 0, 800, 600);
         g.drawImage(ResourceLoader.getLoader().getImage("menu.jpg"),  600, 0, null);        
-        g.drawImage(ResourceLoader.getLoader().getImage("path_2.jpg"),  0, 0, null);        
+        g.drawImage(ResourceLoader.getLoader().getImage("path_2.jpg"),  0, 0, null); 
         
-        enemy.draw(g);
-//        // Have the path object draw itself.
-//        Path path = ResourceLoader.getLoader().getPath("path_2.txt");
-//       //path.draw(g);
-//        
-//        // Draw the circle, centered on its location.  (Must get it's location first.)
-//      
-//       Point imagePos = new Point(); //create new point object for circle
-//       imagePos = path.getPathPosition(percentTraveled); //set position based off percentage
-//       
-//       BufferedImage image = ResourceLoader.getLoader().getImage("snail.png");
-//
-//       g.setColor(Color.RED);
-//       g.drawImage(image, imagePos.x-(image.getWidth()/2), 
-//    		   		imagePos.y-(image.getHeight()/2), null); //circle positioned at center
+        for(Animatable enemy : active) {
+			enemy.draw(g);
+		}
+        
 	}
 }
