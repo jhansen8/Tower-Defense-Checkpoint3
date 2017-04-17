@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ import javax.swing.Timer;
  * @author Peter Jensen and Jared Hansen
  * @version March 29, 2017
  */
-public class TowerDefense extends JPanel implements Runnable, ActionListener, MouseListener
+public class TowerDefense extends JPanel implements Runnable, ActionListener, MouseListener, MouseMotionListener
 {
     // This constant avoids an obnoxious warning, but it is totally unused by us.
     //   It would only be relevant if we were using object serialization.
@@ -90,6 +91,7 @@ public class TowerDefense extends JPanel implements Runnable, ActionListener, Mo
     	t.start();
         
     	this.addMouseListener(this);
+    	this.addMouseMotionListener(this);
     }
     
     /**
@@ -125,9 +127,21 @@ public class TowerDefense extends JPanel implements Runnable, ActionListener, Mo
      *   but we don't use them.      
      */         
     
-    @Override public void mousePressed (MouseEvent e) {}     
+    @Override public void mousePressed (MouseEvent e) {
+    	game.setMousePressed();
+    }     
     @Override public void mouseClicked (MouseEvent e) {}     
     @Override public void mouseEntered (MouseEvent e) {}     
     @Override public void mouseExited  (MouseEvent e) {}     
     @Override public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		game.setMousePos(e.getPoint());
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		game.setMousePos(e.getPoint());
+	}
 }

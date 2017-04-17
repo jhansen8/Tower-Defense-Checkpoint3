@@ -6,8 +6,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-//import java.awt.Point;
-//import java.awt.image.BufferedImage;
 
 public class GameState {
 
@@ -21,7 +19,6 @@ public class GameState {
 	List<Animatable> active;
 	List<Animatable> expired;
 	List<Animatable> pending;
-	Tower currentTower;
 	
 	// Mouse location / status
 	Point mouseLoc;
@@ -48,9 +45,9 @@ public class GameState {
 		mouseX = 0;
 		mouseY = 0;
 		buttonPressed = false;
-		currentTower = null;
 		rand = new Random();
 		active.add(new EnemySnail("path_2.txt", this));
+		active.add(new SaltTowerMenuItem(this, new Point(650, 200)));
 	}
 	
 	/**
@@ -73,6 +70,9 @@ public class GameState {
 		active.removeAll(expired);
 		expired.clear();
 		active.addAll(pending);
+		pending.clear();
+		
+		clearMousePressed();
 	}
 	
 	/**
@@ -87,18 +87,16 @@ public class GameState {
 	{
         // Draw the background.
         g.setColor(Color.WHITE);
-        //g.fillRect(600, 0, 800, 600);
-        g.drawImage(ResourceLoader.getLoader().getImage("menu.jpg"),  600, 0, null);        
+        g.fillRect(600, 0, 800, 600);
         g.drawImage(ResourceLoader.getLoader().getImage("path_2.jpg"),  0, 0, null); 
         
         g.setColor(Color.BLACK);
-        g.drawString("Credit: " + Integer.toString(credit), 700, 200);
-        g.drawString("Lives: " + Integer.toString(lives), 700, 210);
+        g.drawString("Credit: " + Integer.toString(credit), 650, 100);
+        g.drawString("Lives: " + Integer.toString(lives), 650, 120);
         
         for(Animatable enemy : active) {
 			enemy.draw(g);
-		}
-        
+		}        
 	}
 	
 	public void removeAnimatable(Animatable e)
@@ -131,7 +129,9 @@ public class GameState {
 	
 	public void  setMousePos (Point p)       // Records the current mouse position
 	{
-		mouseLoc.setLocation(p.getX(), p.getY());
+		mouseX = p.x;
+		mouseY = p.y;
+		mouseLoc = p;
 	}
 	
 	
@@ -167,12 +167,13 @@ public class GameState {
 			if(a instanceof Enemy)
 			{
 				Enemy e = (Enemy) a;
-				if(closest.equals(null))
+				if (e.getLocation() == null)
+					continue;
+				if(closest == null)
 					closest = e;
 				else if(e.getLocation().distance(p) <
 						closest.getLocation().distance(p))
-					closest = e;
-				
+					closest = e;		
 			}
 		return closest;	
 		
