@@ -90,6 +90,7 @@ public class TowerDefense extends JPanel implements Runnable, ActionListener, Mo
     	Timer t = new Timer(16, this);
     	t.start();
         
+    	// Add event listeners to mouse
     	this.addMouseListener(this);
     	this.addMouseMotionListener(this);
     }
@@ -127,6 +128,7 @@ public class TowerDefense extends JPanel implements Runnable, ActionListener, Mo
      *   but we don't use them.      
      */         
     
+    //set mouse pressed in gamestate.
     @Override public void mousePressed (MouseEvent e) {
     	game.setMousePressed();
     }     
@@ -135,11 +137,13 @@ public class TowerDefense extends JPanel implements Runnable, ActionListener, Mo
     @Override public void mouseExited  (MouseEvent e) {}     
     @Override public void mouseReleased(MouseEvent e) {}
 
+    //set mouse positioned when dragged.
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		game.setMousePos(e.getPoint());
 	}
 
+	//set mouse position when moved.
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		game.setMousePos(e.getPoint());

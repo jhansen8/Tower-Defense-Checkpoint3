@@ -4,7 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 /**
+ * This creates an interface that is used for any object 
+ * that can be animated throughout the game.
  * 
+ * provides update, draw, and getLocation methods
  * 
  * 
  * @author JaredHansen

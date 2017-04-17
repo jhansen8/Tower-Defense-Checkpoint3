@@ -6,13 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- * 
- * 
- * 
- * @author JaredHansen
- * @version April 16, 2017
- */
 public class ResourceLoader {
 
 	private Map<String, BufferedImage> imageMap;
