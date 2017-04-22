@@ -28,14 +28,13 @@ public class GameState {
 	private int credit, lives;
 	
 	// List of enemies, towers, etc.
-	List<Animatable> active;
-	List<Animatable> expired;
-	List<Animatable> pending;
+	private List<Animatable> active;
+	private List<Animatable> expired;
+	private List<Animatable> pending;
 	
 	// Mouse location / status
 	private Point mouseLoc;
-	private int mouseX, mouseY;
-	private boolean buttonPressed;
+	private boolean buttonActionPending;
 	
 	Random rand;
     
@@ -57,11 +56,9 @@ public class GameState {
 		active = new ArrayList<Animatable>();
 		expired = new ArrayList<Animatable>();
 		pending = new ArrayList<Animatable>();
-		mouseX = 0;
-		mouseY = 0;
-		buttonPressed = false;
+		buttonActionPending = false;
+		mouseLoc = new Point(0,0);
 		rand = new Random();
-		active.add(new EnemySnail("path_2.txt", this));
 		active.add(new SaltTowerMenuItem(this, new Point(650, 200)));
 	}
 	
@@ -72,8 +69,8 @@ public class GameState {
 	public void update ()
 	{
 		
-		for(Animatable enemy : active) { //go through active list and update
-			enemy.update();
+		for(Animatable a : active) { //go through active list and update
+			a.update();
 		}
 		
 		if (rand.nextInt(5000) > 4950) { //This will create a new enemy snail at random
@@ -116,8 +113,8 @@ public class GameState {
         g.drawString("Lives: " + Integer.toString(lives), 650, 120);
         
         // Draw enemy objects
-        for(Animatable enemy : active) {
-			enemy.draw(g);
+        for(Animatable a : active) {
+			a.draw(g);
 		}        
 	}
 	
@@ -179,8 +176,6 @@ public class GameState {
 	 */
 	public void  setMousePos (Point p)       // Records the current mouse position
 	{
-		mouseX = p.x;
-		mouseY = p.y;
 		mouseLoc = p;
 	}
 	
@@ -201,7 +196,7 @@ public class GameState {
 	 */
 	public void  setMousePressed ()              // Sets a boolean flag to true (to indicate a mouse press)
 	{
-		buttonPressed = true;
+		buttonActionPending = true;
 	}
 	
 	/**
@@ -210,7 +205,7 @@ public class GameState {
 	 */
 	public void  clearMousePressed ()             // Clears the mouse press boolean flag
 	{
-		buttonPressed = false;
+		buttonActionPending = false;
 	}
 	
 	/**
@@ -219,7 +214,7 @@ public class GameState {
 	 */
 	public boolean getMousePressed ()             // Returns the value of the mouse press flag
 	{
-		return buttonPressed;
+		return buttonActionPending;
 	}
 	
 	/**

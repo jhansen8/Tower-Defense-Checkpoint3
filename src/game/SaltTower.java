@@ -34,7 +34,14 @@ public class SaltTower extends Tower {
 	 */
 	@Override
 	public void update() {
-		game.findNearestEnemy(getLocation());
+		Enemy c = game.findNearestEnemy(getLocation());
+		if (c == null)
+			return;
+		
+		if(c.getLocation().distance(getLocation()) < 50)
+		{
+			
+		}
 	}
 
 }

@@ -40,9 +40,12 @@ public class SaltTowerMoving extends Effect {
 	@Override
 	public void update() {
 		position = game.getMousePos();
-		if(game.getMousePressed() && game.getCredits() >= 25) {
+		
+		if(position.x < 600 && game.getMousePressed() 
+							&& game.getCredits() >= 25) {
+			
 			//Add new salt tower to this position
-			game.addAnimatable(new SaltTower(game, game.getMousePos()));
+			game.addAnimatable(new SaltTower(game, position));
 			
 			// Remove Moving Salt Tower
 			game.removeAnimatable(this);

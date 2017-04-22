@@ -45,7 +45,7 @@ public class EnemySCargo extends Enemy
         
     	percentageTraveled += 0.002; //advance each time event is called
     	
-    	if (percentageTraveled > 1.0) //reset when 100% is reached
+    	if (percentageTraveled >= 1.0) //reset when 100% is reached
     	{
     		game.removeAnimatable(this);
     		game.adjustLives(-2);

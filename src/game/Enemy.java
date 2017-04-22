@@ -50,8 +50,7 @@ public abstract class Enemy implements Animatable
 	 */
 	@Override
 	public void draw(Graphics2D g) {
-	       Point imagePos = new Point(); //create new point object for image
-	       imagePos = path.getPathPosition(percentageTraveled); //set position based off percentage
+	       Point imagePos = getLocation(); //create new point object for image
 	       
 	       g.drawImage(image, imagePos.x-(image.getWidth()/2), 
 	    		   		imagePos.y-(image.getHeight()/2), null); //image positioned at center
