@@ -20,6 +20,7 @@ public abstract class Tower implements Animatable
 	protected Point position;
 	protected GameState game;
 	protected BufferedImage image;
+	protected int frameCounter;
 	
 	/**
 	 * This constructor sets up an tower object. Will 
@@ -52,9 +53,8 @@ public abstract class Tower implements Animatable
 	/**
 	 * This method will return the position of the tower.
 	 */
-	@Override
-	public Point getLocation()
+	public Point getLocationCopy()
 	{
-	      return position;
+	      return new Point(position);
 	}
 }

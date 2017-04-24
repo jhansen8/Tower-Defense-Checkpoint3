@@ -58,8 +58,8 @@ public class Path {
      */ 
 	public void draw (Graphics2D g)
 	{
-		g.setColor(Color.BLUE);
-		g.setStroke(new BasicStroke(2));
+		g.setColor(Color.BLACK);
+		g.setStroke(new BasicStroke(60));
 		
 		//for loop to draw complete path from start to end
 		
@@ -239,6 +239,15 @@ public class Path {
 	        System.out.println (path.size());
 	        for (Point p : path)
 	        	System.out.printf ("%4d  %4d\n", p.x, p.y);
+	  }
+	  
+	  /**
+	   * 
+	   * @return
+	   */
+	  public List<Point> getPathPoints()
+	  {
+		  return path;
 	  }
 	  
 }

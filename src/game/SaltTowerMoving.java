@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Point;
+import java.util.List;
 
 /**
  * This subclass extends the superclass Effect which also 
@@ -16,6 +17,8 @@ import java.awt.Point;
  */
 public class SaltTowerMoving extends Effect {
 
+	private List<Point> pathPoints;
+	
 	/**
 	 * This constructor sets up this type of effect.
 	 * The superclass constructor is used to actually build
@@ -26,6 +29,7 @@ public class SaltTowerMoving extends Effect {
 	 */
 	public SaltTowerMoving (GameState game, Point position) {
 		super(game, "salt.png", position);
+		pathPoints = ResourceLoader.getLoader().getPath("path_2.txt").getPathPoints();
 	}
 
 	/**
@@ -41,21 +45,29 @@ public class SaltTowerMoving extends Effect {
 	public void update() {
 		position = game.getMousePos();
 		
-		if(position.x < 600 && game.getMousePressed() 
-							&& game.getCredits() >= 25) {
+		boolean canPlace = true;
+		for(Point p : pathPoints) { //go through active list and update
+			if (p.getLocation().distance(position) < 30) {
+				canPlace = false;
+				break;
+			}
+		}
+		
+		if(position.x < 600 && game.getPendingButtonAction() 
+							&& game.getCredits() >= 100 && canPlace) {
 			
 			//Add new salt tower to this position
 			game.addAnimatable(new SaltTower(game, position));
 			
 			// Remove Moving Salt Tower
 			game.removeAnimatable(this);
-			game.clearMousePressed();
+			game.clearPendingButtonAction();
 			
-			game.adjustCredits(-25); //adjust the credits when tower is placed
-		}else if(game.getMousePressed() && game.getCredits() < 25){
+			game.adjustCredits(-100); //adjust the credits when tower is placed
+		}else if(game.getPendingButtonAction() && game.getCredits() < 100){
 			// Remove Moving Salt Tower if not enough credits
 			game.removeAnimatable(this);
-			game.clearMousePressed();
+			game.clearPendingButtonAction();
 		}
 	}
 

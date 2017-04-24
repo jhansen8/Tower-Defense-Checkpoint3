@@ -1,6 +1,8 @@
 package game;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class GameState {
 	private boolean isOver, isPlaying;
 	
     // Score, money, etc.
-	private int credit, lives;
+	private int credit, lives, frameCounter, snailRandom, sCargoRandom, level;
 	
 	// List of enemies, towers, etc.
 	private List<Animatable> active;
@@ -49,17 +51,31 @@ public class GameState {
      */
 	public GameState()
 	{       
+		resetGame();
+		rand = new Random();
+	}
+	
+	/**
+	 * This Method resets game to all default values.
+	 */
+	public void resetGame()
+	{
 		credit = 200;
-		lives = 15;
+		lives = 10;
 		isOver = false;
-		isPlaying = true;
+		isPlaying = false;
+		buttonActionPending = false;
+		mouseLoc = new Point(0,0);
+		frameCounter = 0;
 		active = new ArrayList<Animatable>();
 		expired = new ArrayList<Animatable>();
 		pending = new ArrayList<Animatable>();
-		buttonActionPending = false;
-		mouseLoc = new Point(0,0);
-		rand = new Random();
 		active.add(new SaltTowerMenuItem(this, new Point(650, 200)));
+		active.add(new BeerTowerMenuItem(this, new Point(750, 200)));
+		snailRandom = 4950;
+		sCargoRandom = 9980;
+		level = 1;
+		
 	}
 	
 	/**
@@ -68,15 +84,24 @@ public class GameState {
 	 */
 	public void update ()
 	{
+		if(isOver || !isPlaying) // Initialize the gameplay 
+		{
+			if(buttonActionPending)
+			{
+				resetGame();
+				isPlaying = true;
+			} else
+				return;
+		}
 		
 		for(Animatable a : active) { //go through active list and update
 			a.update();
 		}
 		
-		if (rand.nextInt(5000) > 4950) { //This will create a new enemy snail at random
+		if (rand.nextInt(5000) > snailRandom) { //This will create a new enemy snail at random
 			active.add(new EnemySnail("path_2.txt", this)); // add to list
 		}
-		if (rand.nextInt(10000) > 9980) {//This will create a new EnemySCargo at random
+		if (rand.nextInt(10000) > sCargoRandom) {//This will create a new EnemySCargo at random
 			active.add(new EnemySCargo("path_2.txt", this)); //add to list
 		}
 		
@@ -89,7 +114,21 @@ public class GameState {
 		pending.clear();
 		
 		//this will reset the buttonPressed during each update.
-		clearMousePressed();
+		clearPendingButtonAction();
+		
+		if(lives == 0)
+			isOver = true;
+		
+		if(++frameCounter > 1000) {
+			frameCounter = 0;
+			snailRandom -= 30;
+			if(snailRandom < 0)
+				snailRandom = 0;
+			sCargoRandom -= 50;
+			if(sCargoRandom < 0)
+				sCargoRandom = 0;
+			++level;
+		}
 	}
 	
 	/**
@@ -109,13 +148,30 @@ public class GameState {
         
         // display lives and credits on menu.
         g.setColor(Color.BLACK);
-        g.drawString("Credit: " + Integer.toString(credit), 650, 100);
-        g.drawString("Lives: " + Integer.toString(lives), 650, 120);
+        g.drawString("100 Credits", 615, 250);
+        g.drawString("1000 Credits", 715, 250);
+        
+        g.setFont(new Font("arial", 20 , 20));
+        g.drawString("TOWER DEFENSE", 615, 50);
+        g.drawString("Credit: " + Integer.toString(credit), 620, 100);
+        g.drawString("Lives: " + Integer.toString(lives), 620, 130);
+        g.drawString("Level: " + Integer.toString(level), 665, 400);
         
         // Draw enemy objects
         for(Animatable a : active) {
 			a.draw(g);
 		}        
+        
+        if(!isPlaying || isOver)
+        {
+        	g.setColor(Color.BLACK);
+        	g.drawString("Click to play.", 645, 500);
+        }
+        
+        if(isOver)
+        {
+        	g.drawImage(ResourceLoader.getLoader().getImage("game_over.png"), 0, 0, null);
+        }
 	}
 	
 	//helper methods
@@ -194,7 +250,7 @@ public class GameState {
 	 * This helper method will set buttonPressed to true 
 	 * when called.
 	 */
-	public void  setMousePressed ()              // Sets a boolean flag to true (to indicate a mouse press)
+	public void  setPendingButtonAction ()              // Sets a boolean flag to true (to indicate a mouse press)
 	{
 		buttonActionPending = true;
 	}
@@ -203,7 +259,7 @@ public class GameState {
 	 * This helper method will reset buttonPressed to false
 	 * when called.
 	 */
-	public void  clearMousePressed ()             // Clears the mouse press boolean flag
+	public void  clearPendingButtonAction ()             // Clears the mouse press boolean flag
 	{
 		buttonActionPending = false;
 	}
@@ -212,7 +268,7 @@ public class GameState {
 	 * This helper method returns the buttonPressed as boolean
 	 * @return
 	 */
-	public boolean getMousePressed ()             // Returns the value of the mouse press flag
+	public boolean getPendingButtonAction ()             // Returns the value of the mouse press flag
 	{
 		return buttonActionPending;
 	}
@@ -224,8 +280,8 @@ public class GameState {
 	 * When a new enemy is closer, it replaces the older enemy 
 	 * as closest enemy. 
 	 * 
-	 * @param p
-	 * @return
+	 * @param Point p
+	 * @return nearest enemy or Null
 	 */
 	public Enemy findNearestEnemy (Point p)       // Finds the active enemy nearest to point p, returns it
 	                                              //   (or null if none).
@@ -264,5 +320,15 @@ public class GameState {
 	public int getCredits()
 	{
 		return credit;
+	}
+	
+	/**
+	 * This method returns the frame count.
+	 * 
+	 * @return int frame Count
+	 */
+	public int getFrameCount()
+	{
+		return frameCounter;
 	}
 }

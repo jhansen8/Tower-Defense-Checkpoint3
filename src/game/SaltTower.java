@@ -33,15 +33,26 @@ public class SaltTower extends Tower {
 	 * Allows for adjustments and use of other helper methods.
 	 */
 	@Override
-	public void update() {
-		Enemy c = game.findNearestEnemy(getLocation());
+	public void update() 
+	{
+		Point loc = getLocationCopy();
+		Enemy c = game.findNearestEnemy(loc);
 		if (c == null)
 			return;
 		
-		if(c.getLocation().distance(getLocation()) < 50)
+		if(c.getLocation().distance(loc) < 150 && game.getFrameCount() % 30 == 0)
 		{
-			
+			FlyingSalt s = new FlyingSalt(game, loc, 
+									c.getLocation().x - position.x,
+									c.getLocation().y - position.y);
+			game.addAnimatable(s);
 		}
+	}
+
+	@Override
+	public Point getLocation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

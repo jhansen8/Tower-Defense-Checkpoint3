@@ -37,10 +37,10 @@ public class SaltTowerMenuItem extends Effect {
 	@Override
 	public void update() {
 
-		if(game.getMousePressed() && game.getMousePos().distance(position)<25)
+		if(game.getPendingButtonAction() && game.getMousePos().distance(position)<25)
 		{
 			game.addAnimatable(new SaltTowerMoving(game, game.getMousePos()));
-			game.clearMousePressed();
+			game.clearPendingButtonAction();
 		}
 
 

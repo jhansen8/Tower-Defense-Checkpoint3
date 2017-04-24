@@ -22,6 +22,7 @@ public abstract class Enemy implements Animatable
 	protected GameState game;
 	protected double percentageTraveled;
 	protected BufferedImage image;
+	protected int frameCounter;
 	
 	/**
 	 * This constructor sets up an enemy object. Will 

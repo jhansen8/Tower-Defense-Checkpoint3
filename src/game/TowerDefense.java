@@ -130,7 +130,7 @@ public class TowerDefense extends JPanel implements Runnable, ActionListener, Mo
     
     //set mouse pressed in gamestate.
     @Override public void mousePressed (MouseEvent e) {
-    	game.setMousePressed();
+    	game.setPendingButtonAction();
     }
     
     // Unused mouse events
