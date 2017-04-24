@@ -40,7 +40,7 @@ public class SaltTower extends Tower {
 		if (c == null)
 			return;
 		
-		if(c.getLocation().distance(loc) < 150 && game.getFrameCount() % 30 == 0)
+		if(c.getLocation().distance(loc) < 100 && game.getFrameCount() % 30 == 0)
 		{
 			FlyingSalt s = new FlyingSalt(game, loc, 
 									c.getLocation().x - position.x,
@@ -49,10 +49,12 @@ public class SaltTower extends Tower {
 		}
 	}
 
+	/**
+	 * This will return current location of tower.
+	 */
 	@Override
 	public Point getLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return position;
 	}
 
 }

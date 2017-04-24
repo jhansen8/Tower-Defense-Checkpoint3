@@ -51,7 +51,7 @@ public abstract class Tower implements Animatable
 	}
 	
 	/**
-	 * This method will return the position of the tower.
+	 * This method will return the placed position of the tower.
 	 */
 	public Point getLocationCopy()
 	{

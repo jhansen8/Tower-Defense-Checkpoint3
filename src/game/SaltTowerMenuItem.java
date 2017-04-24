@@ -30,7 +30,7 @@ public class SaltTowerMenuItem extends Effect {
 
 	/**
 	 * This method will update everything in relation
-	 * to the tower is the game.
+	 * to the tower in the game.
 	 * 
 	 * Allows for adjustments and use of other helper methods.
 	 */
@@ -39,6 +39,7 @@ public class SaltTowerMenuItem extends Effect {
 
 		if(game.getPendingButtonAction() && game.getMousePos().distance(position)<25)
 		{
+			//add new salt tower to current mouse position.
 			game.addAnimatable(new SaltTowerMoving(game, game.getMousePos()));
 			game.clearPendingButtonAction();
 		}

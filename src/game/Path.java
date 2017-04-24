@@ -242,8 +242,9 @@ public class Path {
 	  }
 	  
 	  /**
+	   * Allows to reach list holding all the points used to make path.
 	   * 
-	   * @return
+	   * @return List of Point Objects
 	   */
 	  public List<Point> getPathPoints()
 	  {

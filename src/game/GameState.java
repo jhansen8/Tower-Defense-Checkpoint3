@@ -87,6 +87,7 @@ public class GameState {
 		{
 			if(buttonActionPending)
 			{
+				//set game play to active when buttonActionPending
 				resetGame();
 				isPlaying = true;
 			} else
@@ -115,17 +116,25 @@ public class GameState {
 		//this will reset the buttonPressed during each update.
 		clearPendingButtonAction();
 		
+		//end game when lives reach 0.
 		if(lives == 0)
 			isOver = true;
 		
+		//set up framecounter as tracker to adjust enemies and level.
 		if(++frameCounter > 1000) {
 			frameCounter = 0;
-			snailRandom -= 30;
+			
+			//Increases rate of randomness each level
+			snailRandom -= 10;
 			if(snailRandom < 0)
 				snailRandom = 0;
-			sCargoRandom -= 50;
+			
+			//Increases rate of randomness each level
+			sCargoRandom -= 15;
 			if(sCargoRandom < 0)
 				sCargoRandom = 0;
+			
+			//Increase leve based on frame count reset
 			++level;
 		}
 	}
@@ -161,12 +170,14 @@ public class GameState {
 			a.draw(g);
 		}        
         
+        //Display message to user informing to start game
         if(!isPlaying || isOver)
         {
         	g.setColor(Color.BLACK);
         	g.drawString("Click to play.", 645, 500);
         }
         
+        //When game ends, game over will be displayed to user.
         if(isOver)
         {
         	g.drawImage(ResourceLoader.getLoader().getImage("game_over.png"), 0, 0, null);

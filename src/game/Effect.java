@@ -21,7 +21,6 @@ public abstract class Effect implements Animatable
 	protected Point position;
 	protected GameState game;
 	protected BufferedImage image;
-	protected int frameCounter;
 	
 	/**
 	 * This constructor sets up an Effect object.  Places an image

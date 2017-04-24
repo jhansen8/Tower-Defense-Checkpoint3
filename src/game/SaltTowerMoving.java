@@ -37,7 +37,7 @@ public class SaltTowerMoving extends Effect {
 	 * to the tower is the game.
 	 * 
 	 * It will create a salt tower in the position
-	 * that mouse is clicked.
+	 * that mouse is clicked as long as position is not on path.
 	 * 
 	 * Allows for adjustments and use of other helper methods.
 	 */
@@ -45,14 +45,16 @@ public class SaltTowerMoving extends Effect {
 	public void update() {
 		position = game.getMousePos();
 		
+		//this will prevent tower from being placed on path
 		boolean canPlace = true;
-		for(Point p : pathPoints) { //go through active list and update
+		for(Point p : pathPoints) { //go through point list check distance for placement
 			if (p.getLocation().distance(position) < 30) {
 				canPlace = false;
 				break;
 			}
 		}
 		
+		// Allows placement outside of menu area, if clicked, and enough credits
 		if(position.x < 600 && game.getPendingButtonAction() 
 							&& game.getCredits() >= 100 && canPlace) {
 			
@@ -64,7 +66,9 @@ public class SaltTowerMoving extends Effect {
 			game.clearPendingButtonAction();
 			
 			game.adjustCredits(-100); //adjust the credits when tower is placed
-		}else if(game.getPendingButtonAction() && game.getCredits() < 100){
+		}
+		else if(game.getPendingButtonAction() && game.getCredits() < 100)
+		{
 			// Remove Moving Salt Tower if not enough credits
 			game.removeAnimatable(this);
 			game.clearPendingButtonAction();
