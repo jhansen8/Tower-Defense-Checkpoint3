@@ -48,7 +48,7 @@ public class EnemySCargo extends Enemy
     	if (percentageTraveled >= 1.0) //reset when 100% is reached
     	{
     		game.removeAnimatable(this);
-    		game.adjustLives(-2);
+    		game.adjustLives(-1);
     	}
 
 	}

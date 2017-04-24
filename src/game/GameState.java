@@ -1,6 +1,5 @@
 package game;
-
-import java.awt.BasicStroke;
+ 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -71,7 +70,7 @@ public class GameState {
 		expired = new ArrayList<Animatable>();
 		pending = new ArrayList<Animatable>();
 		active.add(new SaltTowerMenuItem(this, new Point(650, 200)));
-		active.add(new BeerTowerMenuItem(this, new Point(750, 200)));
+		active.add(new BeerThrowerMenuItem(this, new Point(750, 200)));
 		snailRandom = 4950;
 		sCargoRandom = 9980;
 		level = 1;

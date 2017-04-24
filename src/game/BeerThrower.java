@@ -12,7 +12,7 @@ import java.awt.Point;
  * @author JaredHansen
  * @version April 16, 2017
  */
-public class BeerTower extends Effect {
+public class BeerThrower extends Effect {
 	private Point startingPosition;
 	private boolean returningHome, isHome;
 	private Enemy lockedTarget;
@@ -26,7 +26,7 @@ public class BeerTower extends Effect {
 	 * @param game
 	 * @param position
 	 */
-	public BeerTower(GameState game, Point position) {
+	public BeerThrower(GameState game, Point position) {
 		super(game, "beer.png", position);
 		this.startingPosition = new Point(position);
 		returningHome = false;

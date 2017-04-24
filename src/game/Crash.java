@@ -10,7 +10,7 @@ public class Crash extends Effect {
 
 	@Override
 	public void update() {
-		if(game.getFrameCount() % 60 == 0)
+		if(game.getFrameCount() % 20 == 0)
 			game.removeAnimatable(this);
 	}
 

@@ -3,11 +3,11 @@ package game;
 import java.awt.Point;
 import java.util.List;
 
-public class BeerTowerMoving extends Effect {
+public class BeerThrowerMoving extends Effect {
 
 	private List<Point> pathPoints;
 	
-	public BeerTowerMoving(GameState game, Point position) {
+	public BeerThrowerMoving(GameState game, Point position) {
 		super(game, "beer.png", position);
 		pathPoints = ResourceLoader.getLoader().getPath("path_2.txt").getPathPoints();
 	}
@@ -28,7 +28,7 @@ public class BeerTowerMoving extends Effect {
 							&& game.getCredits() >= 1000 && canPlace) {
 			
 			//Add new salt tower to this position
-			game.addAnimatable(new BeerTower(game, position));
+			game.addAnimatable(new BeerThrower(game, position));
 			
 			// Remove Moving Salt Tower
 			game.removeAnimatable(this);
